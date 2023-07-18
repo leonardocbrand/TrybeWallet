@@ -6,8 +6,8 @@ function Wallet() {
   return (
     <>
       <Header />
-      <Table />
       <WalletForm />
+      <Table />
     </>
   );
 }
