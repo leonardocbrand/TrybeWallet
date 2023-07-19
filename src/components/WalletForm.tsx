@@ -78,40 +78,52 @@ function WalletForm() {
           onChange={ handleChange }
         />
       </label>
-      <select
-        name="currency"
-        data-testid="currency-input"
-        value={ formData.currency }
-        onChange={ handleChange }
-      >
-        {currencies?.map((currency) => (
-          <option key={ currency }>
-            {currency}
-          </option>
-        ))}
-      </select>
-      <select
-        name="method"
-        data-testid="method-input"
-        onChange={ handleChange }
-        value={ formData.method }
-      >
-        <option value="Dinheiro">Dinheiro</option>
-        <option value="Cartão de crédito">Cartão de crédito</option>
-        <option value="Cartão de débito">Cartão de débito</option>
-      </select>
-      <select
-        name="tag"
-        data-testid="tag-input"
-        onChange={ handleChange }
-        value={ formData.tag }
-      >
-        <option value="Alimentação">Alimentação</option>
-        <option value="Lazer">Lazer</option>
-        <option value="Trabalho">Trabalho</option>
-        <option value="Transporte">Transporte</option>
-        <option value="Saúde">Saúde</option>
-      </select>
+      <label htmlFor="currency">
+        Moeda
+        <select
+          id="currency"
+          name="currency"
+          data-testid="currency-input"
+          value={ formData.currency }
+          onChange={ handleChange }
+        >
+          {currencies?.map((currency) => (
+            <option key={ currency }>
+              {currency}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label htmlFor="method">
+        Método de pagamento
+        <select
+          id="method"
+          name="method"
+          data-testid="method-input"
+          onChange={ handleChange }
+          value={ formData.method }
+        >
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
+        </select>
+      </label>
+      <label htmlFor="tag">
+        Categoria da despesa
+        <select
+          id="tag"
+          name="tag"
+          data-testid="tag-input"
+          onChange={ handleChange }
+          value={ formData.tag }
+        >
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
+        </select>
+      </label>
       <button type="submit">Adicionar despesa</button>
     </form>
   );
