@@ -50,7 +50,7 @@ function Table() {
                 data-testid="delete-btn"
                 onClick={ () => dispatch(deleteExpense(expense)) }
               >
-                Remove
+                Excluir
               </button>
             </td>
           </tr>
