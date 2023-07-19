@@ -1,5 +1,7 @@
 import { AnyAction } from 'redux';
-import { REQUEST_CURRENCIES_SUCCESS, UPDATE_WALET_FORM } from '../actions';
+import { DELETE_EXPENSE, REQUEST_CURRENCIES_SUCCESS,
+  UPDATE_WALET_FORM } from '../actions';
+import { ExpensesData } from '../../types';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -19,6 +21,13 @@ const wallet = (state = INITIAL_STATE, action: AnyAction) => {
       return {
         ...state,
         expenses: [...state.expenses, action.payload],
+      };
+    case DELETE_EXPENSE:
+      return {
+        ...state,
+        expenses: state.expenses.filter(
+          (expense: ExpensesData) => expense.id !== action.payload.id,
+        ),
       };
     default:
       return state;

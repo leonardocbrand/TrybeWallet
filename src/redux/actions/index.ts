@@ -1,10 +1,11 @@
-import { Dispatch, FormData, WalletFormData } from '../../types';
+import { Dispatch, ExpensesData, FormData, WalletFormData } from '../../types';
 
 export const UPDATE_LOGIN_FORM = 'UPDATE_LOGIN_FORM';
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const REQUEST_CURRENCIES_SUCCESS = 'REQUEST_CURRENCIES_SUCCESS';
 export const REQUEST_CURRENCIES_ERROR = 'REQUEST_CURRENCIES_ERROR';
 export const UPDATE_WALET_FORM = 'UPDATE_WALET_FORM';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const updateForm = (data: FormData) => ({
   type: UPDATE_LOGIN_FORM,
@@ -44,5 +45,10 @@ export const fetchCurrencies = () => {
 
 export const updateWalletForm = (data: WalletFormData) => ({
   type: UPDATE_WALET_FORM,
+  payload: data,
+});
+
+export const deleteExpense = (data: ExpensesData) => ({
+  type: DELETE_EXPENSE,
   payload: data,
 });

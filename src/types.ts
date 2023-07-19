@@ -37,49 +37,64 @@ export type ExpensesData = {
   tag: string,
   exchangeRates: {
     USD: {
+      name: string,
       ask: string,
     },
     CAD: {
+      name: string,
       ask: string,
 
     },
     GBP: {
+      name: string,
       ask: string,
     },
     ARS: {
+      name: string,
       ask: string,
     },
     BTC: {
+      name: string,
       ask: string,
     },
     LTC: {
+      name: string,
       ask: string,
     },
     EUR: {
+      name: string,
       ask: string,
     },
     JPY: {
+      name: string,
       ask: string,
     },
     CHF: {
+      name: string,
       ask: string,
     },
     AUD: {
+      name: string,
       ask: string,
     },
     CNY: {
+      name: string,
       ask: string,
     },
     ILS: {
+      name: string,
       ask: string,
     },
     ETH: {
+      name: string,
       ask: string,
     },
     XRP: {
+      name: string,
       ask: string,
     },
     DOGE: {
+      name: string,
       ask: string,
     }
   }
