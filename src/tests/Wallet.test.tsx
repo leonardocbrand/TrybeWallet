@@ -49,9 +49,7 @@ describe('Testando a página da Wallet "/carteira"', () => {
       json: async () => (mockData),
     });
 
-    const state = mockUserData;
-
-    renderWithRedux(<Wallet />, { initialState: state });
+    renderWithRedux(<Wallet />);
 
     expect(global.fetch).toBeCalledTimes(1);
 
