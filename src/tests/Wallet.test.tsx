@@ -1,10 +1,9 @@
 import { screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
-import { renderWithRedux, renderWithRouterAndRedux } from './helpers/renderWith';
+import { renderWithRedux } from './helpers/renderWith';
 import { Wallet } from '../pages/Wallet';
 import mockData from './helpers/mockData';
-import App from '../App';
 
 describe('Testando a página da Wallet "/carteira"', () => {
   afterEach(() => {
