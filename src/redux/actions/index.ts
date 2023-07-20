@@ -26,7 +26,7 @@ export const fetchCurrencies = () => {
   return async (dispatch: Dispatch) => {
     dispatch(requestCurrencies());
 
-    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const response = await global.fetch('https://economia.awesomeapi.com.br/json/all');
     const currencies = await response.json();
 
     dispatch(requestCurrenciesSuccess(currencies));
