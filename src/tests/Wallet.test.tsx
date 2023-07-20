@@ -53,7 +53,7 @@ describe('Testando a página da Wallet "/carteira"', () => {
 
     renderWithRedux(<Wallet />, { initialState: state });
 
-    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch).toBeCalledTimes(1);
 
     const table = screen.getByRole('table');
     const description = screen.getByRole('columnheader', {
@@ -89,7 +89,7 @@ describe('Testando a página da Wallet "/carteira"', () => {
     await userEvent.selectOptions(tagSelect, 'Lazer');
     await userEvent.click(submitButton);
 
-    expect(global.fetch).toHaveBeenCalledTimes(2);
+    expect(global.fetch).toBeCalledTimes(2);
 
     const cellValue = await screen.findByRole('cell', { name: /10/i });
     const cellDescription = await screen.findByRole('cell', { name: /teste03/i });
