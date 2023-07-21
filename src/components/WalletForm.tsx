@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, ReduxState, WalletFormData } from '../types';
-import { fetchCurrencies, updateWalletForm } from '../redux/actions';
+import { fetchCurrencies, updateExpense, updateWalletForm } from '../redux/actions';
 
 const INITIAL_STATE = {
   value: '',
@@ -16,11 +16,23 @@ function WalletForm() {
   const [formData, setFormData] = useState<WalletFormData>(INITIAL_STATE);
 
   const dispatch: Dispatch = useDispatch();
-  const { currencies } = useSelector((state: ReduxState) => state.wallet);
+  const {
+    currencies,
+    expenses,
+    editor,
+    idToEdit,
+  } = useSelector((state: ReduxState) => state.wallet);
 
   useEffect(() => {
     dispatch(fetchCurrencies());
   }, []);
+
+  useEffect(() => {
+    if (editor) {
+      const editExpense = expenses.find((expense) => expense.id === idToEdit);
+      if (editExpense) setFormData(editExpense);
+    }
+  }, [editor, expenses, idToEdit]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>,
@@ -43,14 +55,18 @@ function WalletForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const data = {
-      id,
-      ...formData,
-      exchangeRates: await getAllCurrencies(),
-    };
+    if (!editor) {
+      const data = {
+        id,
+        ...formData,
+        exchangeRates: await getAllCurrencies(),
+      };
 
-    setId(id + 1);
-    dispatch(updateWalletForm(data));
+      setId(id + 1);
+      dispatch(updateWalletForm(data));
+    } else {
+      dispatch(updateExpense(formData));
+    }
     setFormData(INITIAL_STATE);
   };
 
@@ -124,7 +140,11 @@ function WalletForm() {
           <option value="Saúde">Saúde</option>
         </select>
       </label>
-      <button type="submit">Adicionar despesa</button>
+      <button
+        type="submit"
+      >
+        {editor ? 'Editar despesa' : 'Adicionar despesa'}
+      </button>
     </form>
   );
 }

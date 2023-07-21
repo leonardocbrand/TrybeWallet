@@ -4,6 +4,7 @@ import { vi } from 'vitest';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
 import mockData from './helpers/mockData';
 import App from '../App';
+import user from '../redux/reducers/user';
 
 describe('Testando a página da Wallet "/carteira"', () => {
   afterEach(() => {
@@ -79,5 +80,41 @@ describe('Testando a página da Wallet "/carteira"', () => {
 
     expect(deletButton).not.toBeInTheDocument();
     expect(cellValue).not.toBeInTheDocument();
+  });
+  test('Testando o botão de editar uma despesa', async () => {
+    renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'] });
+
+    expect(global.fetch).toBeCalledTimes(1);
+
+    const value = screen.getByRole('textbox', { name: /valor/i });
+    const descriptionInput = screen.getByRole('textbox', { name: /descrição da despesa/i });
+    const submitButton = screen.getByRole('button', { name: /adicionar despesa/i });
+
+    await userEvent.type(value, '100');
+    await userEvent.type(descriptionInput, 'teste04');
+    await userEvent.click(submitButton);
+
+    expect(global.fetch).toBeCalledTimes(2);
+
+    const cellValue = await screen.findByRole('cell', { name: /100/i });
+    const cellDescription = await screen.findByRole('cell', { name: /teste04/i });
+    const editButton = await screen.findByRole('button', { name: /editar/i });
+
+    expect(cellValue).toBeInTheDocument();
+    expect(cellDescription).toBeInTheDocument();
+    expect(editButton).toBeInTheDocument();
+
+    await userEvent.click(editButton);
+
+    const updateButton = await screen.findByRole('button', { name: /editar despesa/i });
+
+    expect(updateButton).toBeInTheDocument();
+
+    await userEvent.type(value, '50');
+    await userEvent.click(updateButton);
+
+    const updatedCellValue = await screen.findByRole('cell', { name: /50/i });
+
+    expect(updatedCellValue).toBeInTheDocument();
   });
 });

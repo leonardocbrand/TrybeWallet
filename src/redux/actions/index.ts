@@ -6,6 +6,8 @@ export const REQUEST_CURRENCIES_SUCCESS = 'REQUEST_CURRENCIES_SUCCESS';
 export const REQUEST_CURRENCIES_ERROR = 'REQUEST_CURRENCIES_ERROR';
 export const UPDATE_WALET_FORM = 'UPDATE_WALET_FORM';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
+export const UPDATE_EXPENSE = 'UPDATE_EXPENSE';
 
 export const updateForm = (data: FormData) => ({
   type: UPDATE_LOGIN_FORM,
@@ -50,5 +52,15 @@ export const updateWalletForm = (data: WalletFormData) => ({
 
 export const deleteExpense = (data: ExpensesData) => ({
   type: DELETE_EXPENSE,
+  payload: data,
+});
+
+export const editExpense = (data: ExpensesData) => ({
+  type: EDIT_EXPENSE,
+  payload: data,
+});
+
+export const updateExpense = (data: WalletFormData) => ({
+  type: UPDATE_EXPENSE,
   payload: data,
 });
