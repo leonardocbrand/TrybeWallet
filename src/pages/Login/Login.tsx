@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Box, Button, Container, Paper, Stack, TextField } from '@mui/material';
 import logoImg from '../../public/logo.svg';
 import { updateForm } from '../../redux/actions';
 
@@ -25,7 +26,7 @@ function Login() {
   };
 
   const handleChange = (
-    { target }: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    { target }: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const { name, value } = target;
 
@@ -44,36 +45,51 @@ function Login() {
   };
 
   return (
-    <div>
-      <img src={ logoImg } alt="" />
-      <form onSubmit={ handleSubmit }>
-        <label htmlFor="email">
-          Email
-          <input
+    <Container
+      sx={ {
+        minHeight: '100vh',
+        minWidth: '100vw',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundImage: 'url(https://trybewallet-pied.vercel.app/static/media/backImg.bcb42ed8a853c9c806cc.png)',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center center',
+        backgroundSize: 'cover',
+      } }
+    >
+      <Paper elevation={ 2 } sx={ { p: 4 } }>
+        <Box mb={ 2 } component="img" src={ logoImg } alt="TrybeWallet Logo" />
+        <Stack spacing={ 2 } component="form" onSubmit={ handleSubmit }>
+          <TextField
+            variant="outlined"
+            label="Email"
             type="email"
             name="email"
-            id="email"
             value={ email }
             data-testid="email-input"
             onChange={ handleChange }
           />
-        </label>
-        <label htmlFor="password">
-          Senha
-          <input
+          <TextField
+            variant="outlined"
+            label="Senha"
             type="password"
             name="password"
-            id="password"
             data-testid="password-input"
             value={ password }
             onChange={ handleChange }
           />
-        </label>
-        <button type="submit" disabled={ !disableBtn }>
-          Entrar
-        </button>
-      </form>
-    </div>
+          <Button
+            sx={ { p: 1 } }
+            variant="contained"
+            type="submit"
+            disabled={ !disableBtn }
+          >
+            Entrar
+          </Button>
+        </Stack>
+      </Paper>
+    </Container>
   );
 }
 
