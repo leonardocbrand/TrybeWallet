@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button, Paper, Stack, TextField } from '@mui/material';
 import { Dispatch, ReduxState, WalletFormData } from '../types';
 import { fetchCurrencies, updateExpense, updateWalletForm } from '../redux/actions';
 
@@ -34,9 +35,7 @@ function WalletForm() {
     }
   }, [editor, expenses, idToEdit]);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>,
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => {
       return {
@@ -71,81 +70,107 @@ function WalletForm() {
   };
 
   return (
-    <form onSubmit={ handleSubmit }>
-      <label htmlFor="value">
-        Valor
-        <input
-          type="text"
-          id="value"
-          name="value"
-          data-testid="value-input"
-          value={ formData.value }
-          onChange={ handleChange }
-        />
-      </label>
-      <label htmlFor="description">
-        Descrição da despesa
-        <input
-          type="text"
-          id="description"
-          name="description"
-          data-testid="description-input"
-          value={ formData.description }
-          onChange={ handleChange }
-        />
-      </label>
-      <label htmlFor="currency">
-        Moeda
-        <select
-          id="currency"
-          name="currency"
-          data-testid="currency-input"
-          value={ formData.currency }
-          onChange={ handleChange }
-        >
-          {currencies?.map((currency) => (
-            <option key={ currency }>
-              {currency}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label htmlFor="method">
-        Método de pagamento
-        <select
-          id="method"
-          name="method"
-          data-testid="method-input"
-          onChange={ handleChange }
-          value={ formData.method }
-        >
-          <option value="Dinheiro">Dinheiro</option>
-          <option value="Cartão de crédito">Cartão de crédito</option>
-          <option value="Cartão de débito">Cartão de débito</option>
-        </select>
-      </label>
-      <label htmlFor="tag">
-        Categoria da despesa
-        <select
-          id="tag"
-          name="tag"
-          data-testid="tag-input"
-          onChange={ handleChange }
-          value={ formData.tag }
-        >
-          <option value="Alimentação">Alimentação</option>
-          <option value="Lazer">Lazer</option>
-          <option value="Trabalho">Trabalho</option>
-          <option value="Transporte">Transporte</option>
-          <option value="Saúde">Saúde</option>
-        </select>
-      </label>
-      <button
-        type="submit"
+    <Paper
+      component="section"
+      elevation={ 5 }
+      sx={ { p: '20px', background: 'rgba(225, 229, 235, 0.49)' } }
+    >
+      <Stack
+        component="form"
+        onSubmit={ handleSubmit }
+        spacing={ 2 }
+        direction="column"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
       >
-        {editor ? 'Editar despesa' : 'Adicionar despesa'}
-      </button>
-    </form>
+        <Stack
+          spacing={ 2 }
+          direction={ { xs: 'column', md: 'row' } }
+        >
+          <TextField
+            type="text"
+            id="value"
+            name="value"
+            label="Valor"
+            data-testid="value-input"
+            value={ formData.value }
+            onChange={ handleChange }
+            size="small"
+          />
+          <TextField
+            type="text"
+            id="description"
+            name="description"
+            data-testid="description-input"
+            value={ formData.description }
+            onChange={ handleChange }
+            label="Descrição da despessa"
+            size="small"
+          />
+          <TextField
+            select
+            id="currency"
+            name="currency"
+            label="Moedas"
+            data-testid="currency-input"
+            value={ formData.currency }
+            SelectProps={ { native: true } }
+            onChange={ handleChange }
+            size="small"
+            helperText="Escolha a moeda"
+          >
+            {currencies?.map((currency) => (
+              <option key={ currency }>
+                {currency}
+              </option>
+            ))}
+          </TextField>
+          <TextField
+            id="method"
+            label="Método de pagamento"
+            name="method"
+            select
+            data-testid="method-input"
+            onChange={ handleChange }
+            SelectProps={ { native: true } }
+            value={ formData.method }
+            size="small"
+            helperText="Escolha o método de pagamento"
+          >
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
+          </TextField>
+          <TextField
+            id="tag"
+            label="Categoria da despesa"
+            name="tag"
+            select
+            data-testid="tag-input"
+            onChange={ handleChange }
+            value={ formData.tag }
+            SelectProps={ { native: true } }
+            size="small"
+            helperText="Escolha a categoria da despesa"
+          >
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
+          </TextField>
+        </Stack>
+        <Button
+          variant="contained"
+          size="medium"
+          color="success"
+          type="submit"
+        >
+          {editor ? 'Editar despesa' : 'Adicionar despesa'}
+        </Button>
+      </Stack>
+    </Paper>
   );
 }
 
