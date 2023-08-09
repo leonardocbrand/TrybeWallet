@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import PersonIcon from '@mui/icons-material/Person';
 import logo from '../public/logo.svg';
@@ -27,10 +27,11 @@ function Header() {
   }, [wallet.expenses]);
 
   return (
-    <Box
+    <Stack
+      spacing={ 2 }
       component="header"
       display="flex"
-      flexDirection={ { xs: 'column', sm: 'row' } }
+      flexDirection={ { xs: 'column', md: 'row' } }
       alignItems="center"
       justifyContent="space-around"
     >
@@ -72,7 +73,7 @@ function Header() {
         <PersonIcon />
         {user.email}
       </Typography>
-    </Box>
+    </Stack>
   );
 }
 
